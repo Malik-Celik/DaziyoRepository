@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import pyperclip
 import webbrowser
-from streamlit.components.v1 import html
+
 
 
 if "daziyo" not in st.session_state:
@@ -97,24 +97,15 @@ if submitted:
     message = DAZIYO()
     output_box.write(message) 
 
-
-
-if 'open_count' not in st.session_state:
-    st.session_state.open_count = 0
-
-def copyToIPA():
-    ipa = st.session_state.daziyo[st.session_state.englishWord][1]
-    js_code = f"""
-    <script>
-    navigator.clipboard.writeText("{ipa}").then(() => {{
-        window.open("https://ipa-reader.com", "new_window_{st.session_state.open_count}", "popup").focus();
-    }});
-    </script>
-    """
-    st.session_state.open_count += 1
-    html(js_code, height=0, width=0)
-
+def copyToIPA(): 
+    toBePronounced = st.session_state.daziyo[st.session_state.englishWord][1]
+    ipa = toBePronounced
+    pyperclip.copy(ipa)
+    webbrowser.open("https://ipa-reader.com")
+                
+st.subheader("Want to hear how your word sounds?") 
+st.markdown("Click on **copy and go** to copy the phonemic translation of your currently translated word." \
+" You will be redirected to an IPA reader - just paste and click read "
+"(the **copy and go** button automatically copies the phonemic transcription of the word to your clipboard)")             
 with st.form(key="my_secondform"):
     st.form_submit_button("copy and go", on_click=copyToIPA)
-
-
