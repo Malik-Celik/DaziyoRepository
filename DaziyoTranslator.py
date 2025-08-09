@@ -98,17 +98,23 @@ if submitted:
     output_box.write(message) 
 
 
+
+if 'open_count' not in st.session_state:
+    st.session_state.open_count = 0
+
 def copyToIPA():
     ipa = st.session_state.daziyo[st.session_state.englishWord][1]
     js_code = f"""
     <script>
     navigator.clipboard.writeText("{ipa}").then(() => {{
-        window.open("https://ipa-reader.com", "new_window_" + Math.random().toString(36).substr(2, 9));
+        window.open("https://ipa-reader.com", "new_window_{st.session_state.open_count}", "popup").focus();
     }});
     </script>
     """
-    html(js_code)
+    st.session_state.open_count += 1
+    html(js_code, height=0, width=0)
 
 with st.form(key="my_secondform"):
     st.form_submit_button("copy and go", on_click=copyToIPA)
+
 
