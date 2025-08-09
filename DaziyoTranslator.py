@@ -8,7 +8,7 @@ import webbrowser
 if "daziyo" not in st.session_state:
     st.session_state.daziyo = {}
 
-st.title("Dazyio")
+st.title("Daziyo")
 st.subheader("Daziyo is a language spoken by a fictonal group that lives under water - merpeople. " \
 "Hence, its characteristics allow the maximal intellegibility under water (atleast in theory)")
 
