@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import pyperclip
 import webbrowser
-
+from streamlit.components.v1 import html
 
 
 if "daziyo" not in st.session_state:
@@ -97,17 +97,18 @@ if submitted:
     message = DAZIYO()
     output_box.write(message) 
 
+
 def copyToIPA():
     ipa = st.session_state.daziyo[st.session_state.englishWord][1]
-    # JavaScript to copy to clipboard and open a new tab
-    js = f"""
+    js_code = f"""
     <script>
-    navigator.clipboard.writeText("{ipa}").then(function() {{
-        window.open("https://ipa-reader.com", "_blank");
+    navigator.clipboard.writeText("{ipa}").then(() => {{
+        window.open("https://ipa-reader.com", "new_window_" + Math.random().toString(36).substr(2, 9));
     }});
     </script>
     """
-    st.markdown(js, unsafe_allow_html=True)
+    html(js_code)
 
 with st.form(key="my_secondform"):
     st.form_submit_button("copy and go", on_click=copyToIPA)
+
