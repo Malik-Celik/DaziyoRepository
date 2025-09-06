@@ -84,7 +84,6 @@ def DAZIYO():
         st.session_state.daziyo[englishWord] = [orthographic_form(daziyoFinal), daziyoFinal]
         return englishWord + " " + "in daziyo means" + " " + st.session_state.daziyo[englishWord][0] + ", its phonemic transcription is" + " " + st.session_state.daziyo[englishWord][1]
 
-# --- FORM: capture the boolean submitted, not on_click ---
 with st.form(key="my_form"):
     st.text_input("Enter an English word", key="englishWord") # this is the streamlit equivalent of englishWord = input("Enter an English Word")
     submitted = st.form_submit_button("translate")
